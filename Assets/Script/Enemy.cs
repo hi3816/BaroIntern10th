@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Threading;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -12,11 +15,29 @@ public class Enemy : MonoBehaviour
     Rigidbody2D rd;
     SpriteRenderer spriter;
 
+    public float enemyTime;
+    float timer;
 
     void Awake()
     {
         rd = GetComponent<Rigidbody2D>();
         spriter = GetComponent<SpriteRenderer>();   
+    }
+
+    private void Update()
+    {
+        timer += Time.deltaTime;
+
+        if (timer > enemyTime) 
+        {
+            timer = 0;
+            EnemyDeath();
+        }
+    }
+
+    private void EnemyDeath()
+    {
+        gameObject.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -32,5 +53,10 @@ public class Enemy : MonoBehaviour
     private void LateUpdate()
     {
         spriter.flipX = target.position.x < rd.position.x;
+    }
+
+    private void OnEnable()
+    {
+        target = GameManager.instance.player.GetComponent<Rigidbody2D>();
     }
 }

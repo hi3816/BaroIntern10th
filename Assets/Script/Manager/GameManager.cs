@@ -4,13 +4,31 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
-    public PoolManager poolManager;
-    public Player player;
-   
-
+    public static GameManager Instance;
+    private PoolManager poolManager;
+    private Player player;
     private void Awake()
     {
-        instance = this;
+        // ½Ì±ÛÅæ ¼³Á¤
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // ¾À ÀüÈ¯ ½Ã¿¡µµ À¯Áö
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
+
+    public void RegisterPlayer(Player playerObject)
+    {
+        player = playerObject;
+    }
+
+    public Player GetPlayer()
+    {
+        return player;
     }
 }

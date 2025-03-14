@@ -5,6 +5,8 @@ using UnityEngine.UIElements;
 
 public class PoolManager : MonoBehaviour
 {
+    public static PoolManager Instance { get; private set; }
+
     //프리팹을 보관
     public GameObject[] prefabs;
     public int poolSize;
@@ -14,13 +16,29 @@ public class PoolManager : MonoBehaviour
 
     private void Awake()
     {
+        // 싱글톤 설정
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // 씬 전환 시에도 유지
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        InitializePool();
+    }
+
+    private void InitializePool()
+    {
         pools = new List<GameObject>[prefabs.Length];
 
-        for (int i = 0; i < pools.Length; i++)
+        for (int i = 0; i < prefabs.Length; i++)
         {
             pools[i] = new List<GameObject>();
 
-            //풀사이즈만큼 생성
             for (int j = 0; j < poolSize; j++)
             {
                 GameObject obj = Instantiate(prefabs[i]);

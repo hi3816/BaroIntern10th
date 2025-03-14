@@ -17,11 +17,16 @@ public class Player : MonoBehaviour
     SpriteRenderer spriter;
     Animator anim;
 
-    private void Awake()
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriter = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.RegisterPlayer(this); 
+        }
     }
 
     private void FixedUpdate()

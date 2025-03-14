@@ -61,7 +61,7 @@ public class Enemy : MonoBehaviour
 
     private void OnEnable()
     {
-        target = GameManager.instance.player.GetComponent<Rigidbody2D>();
+        target = GameManager.Instance.GetPlayer().GetComponent<Rigidbody2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

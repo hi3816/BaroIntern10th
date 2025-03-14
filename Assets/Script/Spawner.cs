@@ -29,7 +29,7 @@ public class Spawner : MonoBehaviour
 
     private void Spawn()
     {
-        GameObject enemy = GameManager.instance.poolManager.Get(0);
+        GameObject enemy = PoolManager.Instance.Get(0);
         enemy.transform.position = spawnPoint[Random.Range(1, spawnPoint.Length)].transform.position;
     }
 }

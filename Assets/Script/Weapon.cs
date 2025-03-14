@@ -18,7 +18,15 @@ public class Weapon : MonoBehaviour
     }
     void Update()
     {
-        
+        switch (id)
+        {
+            case 0:
+                transform.Rotate(Vector3.back * speed * Time.deltaTime);
+
+                break;
+            default:
+                break;
+        }
     }
 
     public void Init()
@@ -26,7 +34,7 @@ public class Weapon : MonoBehaviour
         switch (id) 
         {
             case 0:
-                speed = -150;
+                speed = 150;
                 Batch();
 
                 break;
@@ -40,10 +48,15 @@ public class Weapon : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            GameObject bullet = GameManager.instance.poolManager.Get(prefabId);
+            GameObject bullet = PoolManager.Instance.Get(prefabId);
             bullet.SetActive(true);
+            Transform bulletTr = bullet.transform;
 
-            bullet.transform.parent = transform;
+            Vector3 rotVec = Vector3.forward * 360 * i / count;
+            bulletTr.Rotate(rotVec);
+            bulletTr.Translate(bulletTr.up * 1.5f, Space.World);
+
+            bulletTr.parent = transform;
             bullet.GetComponent<Bullet>().Init(damage, -1); // -1 is Infinity Per.
         }
     }

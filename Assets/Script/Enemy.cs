@@ -78,10 +78,18 @@ public class Enemy : MonoBehaviour
         {
             Dead();
         }
-
-        void Dead() 
+    }
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
         {
-            gameObject.SetActive (false);
+            Dead();
         }
+    }
+
+    void Dead()
+    {
+        gameObject.SetActive(false);
     }
 }

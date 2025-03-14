@@ -12,5 +12,5 @@ public class Bullet : MonoBehaviour
     {
         this.damage = damage;
         this.per = per;
-    }
+    }    
 }

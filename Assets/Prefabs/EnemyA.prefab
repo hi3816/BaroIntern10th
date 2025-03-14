@@ -248,6 +248,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+  health: 0
+  maxHealth: 0
+  aniController:
+  - {fileID: 0}
+  - {fileID: 0}
   target: {fileID: 0}
   enemyTime: 20
 --- !u!114 &3894084421183215703

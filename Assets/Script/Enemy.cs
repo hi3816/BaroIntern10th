@@ -8,6 +8,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float speed;
+    public float health;
+    public float maxHealth;
+    public RuntimeAnimatorController[] aniController;
     public Rigidbody2D target;
 
     bool isLive = true;

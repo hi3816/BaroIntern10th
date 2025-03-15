@@ -14,9 +14,10 @@ public class Enemy : MonoBehaviour
     public RuntimeAnimatorController[] aniController;
     public Rigidbody2D target;
 
-    bool isLive = true;
+    bool isLive;
 
     Rigidbody2D rd;
+    Animator animator;
     SpriteRenderer spriter;
 
     public float enemyTime;
@@ -26,6 +27,7 @@ public class Enemy : MonoBehaviour
     {
         rd = GetComponent<Rigidbody2D>();
         spriter = GetComponent<SpriteRenderer>();   
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -62,7 +64,17 @@ public class Enemy : MonoBehaviour
     private void OnEnable()
     {
         target = GameManager.Instance.GetPlayer().GetComponent<Rigidbody2D>();
+        isLive = true;
+        health = maxHealth;
     }
+
+    public void Init(SpawnData data)
+    {
+        animator.runtimeAnimatorController = aniController[data.spriteType];
+        speed = data.speed;
+        maxHealth = data.health;
+        health = data.health; 
+    }    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

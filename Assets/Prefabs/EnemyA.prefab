@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 182212248749291956}
   - component: {fileID: 1619644780666641848}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,8 @@ GameObject:
   - component: {fileID: 6843453696196301627}
   - component: {fileID: 370198779800657883}
   - component: {fileID: 3894084421183215703}
-  m_Layer: 0
+  - component: {fileID: 2591131410731756874}
+  m_Layer: 6
   m_Name: EnemyA
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -251,8 +252,9 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   aniController:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 9100000, guid: be641348e1fe8c440981eb17108d69fd, type: 2}
+  - {fileID: 22100000, guid: 99ac3efcf021c7b4ab5a192745a90640, type: 2}
+  - {fileID: 22100000, guid: 007c1a69c26fcf74ab579d2bfa1e03ee, type: 2}
   target: {fileID: 0}
   enemyTime: 20
 --- !u!114 &3894084421183215703
@@ -267,3 +269,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfebd1fe691c763439cc88d6d460d31a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &2591131410731756874
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3076293369672808252}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: be641348e1fe8c440981eb17108d69fd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

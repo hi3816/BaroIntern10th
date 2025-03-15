@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -10,8 +12,13 @@ public class Weapon : MonoBehaviour
     public int count;
     public float speed;
 
-    // Update is called once per frame
+    float timer;
+    Player player;
 
+    private void Awake()
+    {
+        player = GetComponentInParent<Player>();
+    }
     private void Start()
     {
         Init();
@@ -25,6 +32,13 @@ public class Weapon : MonoBehaviour
 
                 break;
             default:
+                timer += Time.deltaTime;
+
+                if (timer > speed)
+                { 
+                    timer = 0f;
+                    Fire();
+                }
                 break;
         }
     }
@@ -39,6 +53,7 @@ public class Weapon : MonoBehaviour
 
                 break;
             default:
+                speed = 0.3f;
                 break;
         }
             
@@ -57,7 +72,23 @@ public class Weapon : MonoBehaviour
             bulletTr.Translate(bulletTr.up * 1.5f, Space.World);
 
             bulletTr.parent = transform;
-            bullet.GetComponent<Bullet>().Init(damage, -1); // -1 is Infinity Per.
+            bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero); // -1 is Infinity Per.
         }
+    }
+
+    private void Fire()
+    {
+        if (!player.scanner.nearestTarget) 
+            return;
+
+        Vector3 targetPos = player.scanner.nearestTarget.position;
+        Vector3 dir = targetPos - transform.position;
+        dir = dir.normalized;
+
+        Transform bullet = PoolManager.Instance.Get(prefabId).transform;
+        bullet.position = transform.position;
+        bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
+
+        bullet.GetComponent<Bullet>().Init(damage, count, dir);
     }
 }

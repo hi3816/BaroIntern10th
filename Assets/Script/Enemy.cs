@@ -84,7 +84,7 @@ public class Enemy : MonoBehaviour
 
         if (health > 0)
         {
-
+            animator.SetTrigger("Hit");
         }
         else
         {

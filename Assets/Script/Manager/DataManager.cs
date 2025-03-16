@@ -1,24 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DataTable;
 
 public class DataManager : MonoBehaviour
 {
-    private List<Human_Data> _humanDataList;
-    // Start is called before the first frame update
-    void Start()
+    public static DataManager Instance { get; private set; }
+
+    private List<item> _itemDataList;
+    private List<monster> _monsterDataList;
+
+
+    void Awake()
     {
-        
+        // ½Ì±ÛÅæ ¼³Á¤
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // ¾À ÀüÈ¯ ½Ã¿¡µµ À¯Áö
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        LoadItemData();
+        LoadMonsterData();
     }
 
-    private void LoadBaseMonsterData()
+    private void LoadItemData()
     {
-        _baseMonsterDataList = Monster_Data.GetList();
-        _baseMonsterDataDictionary = new Dictionary<int, Monster_Data>();
+        _itemDataList = item.GetList();
+    }
 
-        foreach (var baseMonsterData in _baseMonsterDataList)
-        {
-            _baseMonsterDataDictionary[baseMonsterData.id] = baseMonsterData;
-        }
+    private void LoadMonsterData()
+    {
+        _monsterDataList = monster.GetList();
+    }
+
+    public List<monster> GetMosnterData()
+    {
+        return _monsterDataList;
+    }
+    public List<item> GetItemData()
+    {
+        return _itemDataList;
     }
 }

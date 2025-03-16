@@ -19,7 +19,7 @@ public class Spawner : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer > 5f)
+        if (timer > 1f)
         {
             timer = 0;
             Spawn();
@@ -31,7 +31,7 @@ public class Spawner : MonoBehaviour
     {
         GameObject enemy = PoolManager.Instance.Get(0);
         enemy.transform.position = spawnPoint[Random.Range(1, spawnPoint.Length)].transform.position;
-        enemy.GetComponent<Enemy>().Init(spawnData[Random.Range(1, spawnData.Length)]);
+        enemy.GetComponent<Enemy>().Init(spawnData[Random.Range(0, spawnData.Length)]);
     }
 }
 

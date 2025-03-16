@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
+    private List<Human_Data> _humanDataList;
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void LoadBaseMonsterData()
     {
-        
+        _baseMonsterDataList = Monster_Data.GetList();
+        _baseMonsterDataDictionary = new Dictionary<int, Monster_Data>();
+
+        foreach (var baseMonsterData in _baseMonsterDataList)
+        {
+            _baseMonsterDataDictionary[baseMonsterData.id] = baseMonsterData;
+        }
     }
 }

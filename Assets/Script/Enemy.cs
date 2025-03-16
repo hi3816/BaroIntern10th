@@ -24,12 +24,14 @@ public class Enemy : MonoBehaviour
     public float enemyTime;
     float timer;
 
+    public bool hasBeenHit;
+
     void Awake()
     {
         rd = GetComponent<Rigidbody2D>();
         spriter = GetComponent<SpriteRenderer>();   
         animator = GetComponent<Animator>();
-        wait = GetComponent<WaitForFixedUpdate>();
+        wait = new WaitForFixedUpdate();
     }
 
     private void Update()
@@ -50,7 +52,7 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isLive || animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) return;
+        if (!isLive || animator.GetCurrentAnimatorStateInfo(0).IsName("Enemy_hit")) return;
 
         Vector2 dirVec = target.position - rd.position;
         Vector2 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
@@ -83,10 +85,11 @@ public class Enemy : MonoBehaviour
         if (!collision.CompareTag("Bullet")) return;
 
         health -= collision.GetComponent<Bullet>().damage;
-        //StartCoroutine(KnockBack());
+        StartCoroutine(KnockBack());
 
         if (health > 0)
         {
+            Debug.Log("맞음");
             animator.SetTrigger("Hit");
         }
         else
@@ -94,17 +97,19 @@ public class Enemy : MonoBehaviour
             Dead();
         }
 
-        //IEnumerator KnockBack()
-        //{ 
-        //    yield return wait; // 다음 하나의 물리 프레임 딜레이
-        //    Vector3 playerPos = GameManager.Instance.GetPlayer().transform.position;
-        //    Vector3 dirVec = transform.position - playerPos;
-        //    rd.AddForce(dirVec.normalized * 3, ForceMode2D.Impulse);
-        //}
+        IEnumerator KnockBack()
+        {
+            yield return wait;
+
+            Vector3 playerPos = GameManager.Instance.GetPlayer().transform.position;
+            Vector3 dirVec = transform.position - playerPos;
+            rd.AddForce(dirVec.normalized * 5, ForceMode2D.Impulse);
+        }
 
         void Dead() 
         {
             gameObject.SetActive (false);
+            hasBeenHit = false;
         }
     }
 }

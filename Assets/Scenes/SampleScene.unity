@@ -4964,8 +4964,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   prefabId: 1
-  damage: 11
-  count: 5
+  damage: 1
+  count: 0
   speed: 0
 --- !u!1 &657320826
 GameObject:

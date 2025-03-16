@@ -14,7 +14,7 @@ using System.Reflection;
 using UnityEngine;
 
 
-namespace BaaroIntern10th
+namespace DataTable
 {
     [GoogleSheet.Attribute.TableStruct]
     public partial class item : ITable
@@ -84,7 +84,7 @@ namespace BaaroIntern10th
                  return;
             }
 
-            string text = reader.ReadData("BaaroIntern10th"); 
+            string text = reader.ReadData("DataTable"); 
             if (text != null)
             {
                 var result = Newtonsoft.Json.JsonConvert.DeserializeObject<ReadSpreadSheetResult>(text);

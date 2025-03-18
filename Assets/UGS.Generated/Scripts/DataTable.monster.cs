@@ -20,7 +20,7 @@ namespace DataTable
     public partial class monster : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<monster> loadedList, Dictionary<int, monster> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<monster> loadedList, Dictionary<string, monster> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "1busZr2bgHGgI5jz5ZzkXtZdBZ6aT69hgCueMhiamwzA"; // it is file id
@@ -29,7 +29,7 @@ namespace DataTable
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<int, monster> monsterMap = new Dictionary<int, monster>();  
+        public static Dictionary<string, monster> monsterMap = new Dictionary<string, monster>();  
         public static List<monster> monsterList = new List<monster>();   
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace DataTable
         /// Get monster Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<int, monster>  GetDictionary()
+        public static Dictionary<string, monster>  GetDictionary()
         {{
            if (isLoaded == false) Load();
            return monsterMap;
@@ -56,15 +56,15 @@ namespace DataTable
 
 /* Fields. */
 
-		public System.Int32 itemId;
+		public System.String itemId;
 		public System.String name;
 		public System.String description;
 		public System.Int32 attack;
-		public System.Int32 attackMul;
+		public System.Single attackMul;
 		public System.Int32 maxHP;
-		public System.Int32 maxHPMul;
+		public System.Single maxHPMul;
 		public System.Int32 attackRange;
-		public System.Int32 attackRangeMul;
+		public System.Single attackRangeMul;
 		public System.Single attackSpeed;
 		public System.Int32 moveSpeed;
 		public System.Single minExp;
@@ -96,7 +96,7 @@ namespace DataTable
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<monster>, Dictionary<int, monster>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<monster>, Dictionary<string, monster>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -124,8 +124,8 @@ namespace DataTable
                
 
 
-    public static (List<monster> list, Dictionary<int, monster> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<int, monster> Map = new Dictionary<int, monster>();
+    public static (List<monster> list, Dictionary<string, monster> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<string, monster> Map = new Dictionary<string, monster>();
             List<monster> List = new List<monster>();     
             TypeMap.Init();
             FieldInfo[] fields = typeof(monster).GetFields(BindingFlags.Public | BindingFlags.Instance);

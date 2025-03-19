@@ -34,14 +34,15 @@ public class SlotList : MonoBehaviour
             for (int i = 0; i < monsterDataList.Count; i++)
             {
                 testLoadText.text += $"{i + 1}. {monsterDataList[i].name}\n"; // 줄바꿈 포함
+
+                //slot생성
+                GameObject instance = Instantiate(prefab, this.transform); // 부모를 설정하여 생성
+                instance.transform.localPosition = Vector3.zero; // 부모 기준 위치 조정
+
+                //슬롯 텍스트 수정
+                TextMeshProUGUI textComponent = instance.GetComponentInChildren<TextMeshProUGUI>();
+                textComponent.text = monsterDataList[i].name;
             }
-
-            //slot생성
-            GameObject instance = Instantiate(prefab, this.transform); // 부모를 설정하여 생성
-            instance.transform.localPosition = Vector3.zero; // 부모 기준 위치 조정
-
-            //슬롯 텍스트 수정
-            TextMeshProUGUI textComponent = instance.GetComponentInChildren<TextMeshProUGUI>();
         }
         else
         {
